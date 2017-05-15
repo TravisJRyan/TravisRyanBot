@@ -82,4 +82,4 @@ def generateTweet(num):
 while (True):
 	num = random.randrange(1, 24)
 	generateTweet(num)
-	time.sleep(60 * 60 * 6)#Tweet every 2 minutes
+	time.sleep(60 * 60 * 6)#Tweet every 6 hours
