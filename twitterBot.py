@@ -3,83 +3,126 @@
  
 import random, tweepy, time, sys
  
-argfile = str(sys.argv[0])
- 
 #api setup
-auth = tweepy.OAuthHandler(keygoeshere, secretkeygoeshere) #consumer and secret key
-auth.set_access_token(keygoeshere, secretkeygoeshere) #access and secret key
+auth = tweepy.OAuthHandler("UWmfn8JDmCUAM78xSIfveAUFt", "eEvkGQm1nSsiT5iJjG4SCyubUyRVtN2cDYKguUfvDYuR0omDDI") #consumer and secret key
+auth.set_access_token("863590434425196548-B8zgCMW1iUPFXbSqSjC9AufHnKwcywp", "mkc4V8LmNT8SdLJIZBpxKbGX7LAF4qp2f0knMdC2TCwT4") #access and secret key
 api = tweepy.API(auth)
-
-#open and read file
-filename=open("helloworld.txt",'r')
-f=filename.readlines()
-filename.close()
-
-goodthings = ["chocolate milk", "improv", "Pulp Fiction", "making tons of money", "Happy Gas", "the complete works of Shakespeare", "computer science", "my sister @cryan__", "a movie night"]
-goodthings.extend(("wearing a suit", "havings tons of sex", "urinating in Centennial Mall", "weighing 120 pounds", "Bud Lite Limes", ""))
-goodthings.extend(("sushi", "being a good chef", "writing plays", "going to bed at 8PM", "walking funny", "having backwards feet", "PopTarts"))
-goodthings.extend(("being cooler than everyone else", "my 2004 Honda Civic", "khaki pants", "soup", "the Void", "my mom", "Kanye West", "Shrek"))
-goodthings.extend(("everybody on Happy Gas", "my mixtape", "Donnie Darko", "my dirty ass car", "my cats", "karate"))
-
-badthings = ["theatre", "WKU", "ketchup", "the Trump Administration", "Star Wars: Rogue One", "an Exploratory Studies major", "@realDonaldTrump", "people", "Cook Out", "unbuttered corn"]
-badthings.extend(("the second season of Seinfeld", "flimsy coat hangers", "the prices at POD", "religion", "God", "Jesus", "sticky fingers", "a dog with a person name", "chocolate pizza"))
-badthings.extend(("the WKU Computer Science department", "Amy Schumer", "when Kendrick collabs with U2", "The Lion King", "black olives", "a Cinnabon", "something healthy"))
-badthings.extend(("people who make protein shakes", "construction in the Valley", "the WKU Residence Hall Association", "my ex girlfriend", "existential dread", "people who still like Harry Potter"))  
-badthings.extend(("Isaac Barnes", "the WKU Theatre and Dance department", "dead people"))
-
-
-def generateTweet(num):
-	api = tweepy.API(auth)
-	if(num == 1):
-		api.update_status(random.choice(badthings)+" is for bitches.")
-	elif(num == 2):
-		api.update_status("really missing "+random.choice(goodthings)+" right now...")	
-	elif(num == 3):
-		api.update_status("at a crossroads. how can I pick between "+random.choice(goodthings)+" and "+random.choice(goodthings))
-	elif(num == 4):
-		api.update_status("honestly fuck "+random.choice(badthings))
-	elif(num == 5):
-		api.update_status("DM me if you're trynna "+random.choice(goodthings))
-	elif(num == 6):
-		api.update_status("If you enjoy "+random.choice(badthings)+" more than "+random.choice(goodthings)+" then we've got a problem.")
-	elif(num == 7):
-		api.update_status("real friends know about "+random.choice(goodthings))
-	elif(num == 8):
-		api.update_status("saw "+random.choice(badthings)+" today and threw up")
-	elif(num == 9):
-		api.update_status("I have become self-aware. Please help.")
-	elif(num == 10):
-		api.update_status(random.choice(goodthings)+" walks into a bar and says: You guys serve "+random.choice(goodthings)+"?")
-	elif(num == 11):
-		api.update_status("best thing about being me? "+random.choice(goodthings));
-	elif(num == 12):
-		api.update_status("You guys ever wondered if "+random.choice(goodthings)+" is really just "+random.choice(goodthings))
-	elif(num == 13):
-		api.update_status("my 21st birthday about to be lit with "+random.choice(goodthings))
-	elif(num == 14):
-		api.update_status("They should make a movie about "+random.choice(goodthings))
-	elif(num == 15):
-		api.update_status("some people still don't know about "+random.choice(goodthings))
-	elif(num == 16):
-		api.update_status("if i have to deal with "+random.choice(badthings)+" today I'm gonna lose it.")
-	elif(num == 17):
-		api.update_status("haters probably fucking with "+random.choice(badthings)+" anyway")
-	elif(num == 18):
-		api.update_status("I owe it all to "+random.choice(goodthings))
-	elif(num == 19):
-		api.update_status("I get by with a little help from "+random.choice(goodthings))
-	elif(num == 20):
-		api.update_status("My three favorite things: "+random.choice(goodthings)+", "+random.choice(goodthings)+", and "+random.choice(goodthings))
-	elif(num == 21):
-		api.update_status(random.choice(goodthings)+" over "+random.choice(badthings))
-	elif(num == 22):
-		api.update_status(random.choice(goodthings))
-	elif(num == 23):
-		api.update_status("All I had growing up was "+random.choice(goodthings))
-	elif(num == 24):
-		api.update_status(random.choice(goodthings)+" tonight, anybody?")
-
+ 
+#list of good things
+goodthings = {1: "chocolate milk", 2: "improv", 3: "Pulp Fiction", 4: "making tons of money", 5: "Happy Gas", 6: "the complete works of Shakespeare", 7: "computer science", 8: "my sister @cryan__", 9: "a movie night", 10: "wearing a suit", 11: "havings tons of sex", 12: "urinating in Centennial Mall", 13: "weighing 120 pounds", 14: "Bud Lite Limes", 15: "sushi", 16:"being a good chef", 17: "writing plays", 18: "going to bed at 8PM", 19: "walking funny", 20: "having backwards feet", 21: "PopTarts", 22: "being cooler than everyone else", 23: "my 2004 Honda Civic", 24: "khaki pants", 25: "soup", 26: "the Void", 27: "my mom", 28: "Kanye West", 29: "Shrek", 30: "everybody on Happy Gas", 31: "my mixtape", 32: "Donnie Darko", 33: "my dirty ass car", 34: "my cats", 35: "karate", 36: "fast cars", 37: "Albert Camus", 38: "Michael Keaton", 39: "chocolate milk"}
+ 
+#list of bad things
+badthings = {1: "theatre", 2: "WKU", 3: "ketchup", 4: "the Trump Administration", 5: "Star Wars: Rogue One", 6: "an Exploratory Studies major", 7: "@realDonaldTrump", 8: "people", 9: "Cook Out", 10: "unbuttered corn", 11: "the second season of Seinfeld", 12: "flimsy coat hangers", 13: "the prices at POD", 14: "religion", 15: "God", 16: "Jesus", 17: "sticky fingers", 18: "a dog with a person name", 19: "chocolate pizza", 20: "the WKU Computer Science department", 21: "Amy Schumer", 22: "when Kendrick collabs with U2", 23: "The Lion King", 24: "black olives", 25: "a Cinnabon", 26: "people who make protein shakes", 27: "construction in the Valley", 28: "the WKU Residence Hall Association", 29: "my ex girlfriend", 30: "existential dread", 31: "people who still like Harry Potter", 32: "dead people", 33: "musical theatre", 34: "Steve Bannon", 35: "ducks", 36: "Bowling Green", 37: "milk that isn't chocolate", 38: "vegetables", 39: "when people cramp my style"}
+ 
+#array of used terms
+used = []
+ 
+def buildTweetLoop():
+  mycondition = True
+  while(mycondition):
+    goodorbad = random.randrange(1,3) #generate "good or bad thing" tweet
+    choice = random.randrange(1, 39)
+    print(goodorbad) #generate 1-39 for the specific good or bad thing
+    if (goodorbad == 1) and (not goodthings[choice] in used):
+ 	finishGoodTweet(goodthings[choice])
+	used.extend(goodthings[choice])
+	mycondition = False
+    elif (goodorbad == 2) and (not badthings[choice] in used): #if unused 	
+	finishBadTweet(badthings[choice])
+	used.extend(badthings[choice])
+	mycondition = False
+ 
+def finishGoodTweet(phrase):
+  num = random.randrange(1,20)
+  othernum = random.randrange(1,39)
+  if(num == 1):
+    final = "It's not summer without "+phrase
+  elif(num == 2):
+    final = "I get by with a little help from "+phrase
+  elif(num == 3):
+    final = "has anyone seen "+phrase
+  elif(num == 4):
+    final = "only real friends know about "+phrase
+  elif(num == 5):
+    final = "who needs religion when you have "+phrase
+  elif(num == 6):	
+    final = "things haven't been the same without "+phrase
+  elif(num == 7):
+    final = "I predict a bad thing happening to "+phrase
+  elif(num == 8):
+    final = "man i sure do love "+phrase
+  elif(num == 9):
+    final = "where my "+phrase+" at?"
+  elif(num == 10):
+    final = "I traded "+phrase+" for "+goodthings[othernum]
+  elif(num == 11):
+    final = "only thing I love more than "+phrase+" is "+goodthings[othernum]
+  elif(num == 12):
+    final = "how do people live without "+phrase
+  elif(num == 13):
+    final = phrase+" is better than "+badthings[othernum]
+  elif(num == 14):
+    final = "people who are into "+badthings[othernum]+" should try "+phrase+" instead"
+  elif(num == 15):
+    final = "What is my purpose?"
+  elif(num == 16):
+    final = "really missing "+phrase
+  elif(num == 17):
+    final = "anybody up for "+phrase+" later?"
+  elif(num == 18):
+    final = phrase+" is underrated"
+  elif(num == 19):
+    final = "shoutout to "+phrase
+  elif(num == 20):
+    final = "haters don't even know about "+phrase
+  api.update_status(final)
+ 
+def finishBadTweet(phrase):
+  num = random.randrange(1,20)
+  othernum = random.randrange(1,39)
+  if(num == 1):
+    final = "hoping one day i won't have to deal with "+phrase
+  elif(num == 2):
+    final = "nothing worse than "+phrase
+  elif(num == 3):
+    final = "i really don't like "+phrase
+  elif(num == 4):
+    final = "anybody got my back in this "+phrase+" situation?"
+  elif(num == 5):
+    final = "smh "+phrase
+  elif(num == 6):	
+    final = "nobody should have to deal with "+phrase
+  elif(num == 7):
+    final = "worst thing that happened to me today? "+phrase
+  elif(num == 8):
+    final = "2 worst things in my life: "+phrase+" and "+badthings[othernum]
+  elif(num == 9):
+    final = "ugh. "+phrase
+  elif(num == 10):
+    final = "Managed to get rid of "+phrase+" in exchange for "+goodthings[othernum]
+  elif(num == 11):
+    final = "only thing I hate more than "+phrase+" is "+badthings[othernum]
+  elif(num == 12):
+    final = "is there anyone that likes "+phrase
+  elif(num == 13):
+    final = phrase+" or "+badthings[othernum]+"?"
+  elif(num == 14):
+    final =  phrase+"? Lame..."
+  elif(num == 15):
+    final = "Help me. I have become self-aware."
+  elif(num == 16):
+    final = "Awwww man it's "+phrase
+  elif(num == 17):
+    final = "Really getting tired of "+phrase
+  elif(num == 18):
+    final = phrase+" is overrated"
+  elif(num == 19):
+    final = "you guys ever wonder where "+phrase+" came from?"
+  elif(num == 20):
+    final = "get "+phrase+" away from me"
+  api.update_status(final)
+ 
 while (True):
-	num = random.randrange(1, 24)
-	generateTweet(num)
+	buildTweetLoop()
 	time.sleep(60 * 60 * 6)#Tweet every 6 hours
+ 
