@@ -4,8 +4,8 @@
 import random, tweepy, time, sys
  
 #api setup
-auth = tweepy.OAuthHandler("UWmfn8JDmCUAM78xSIfveAUFt", "eEvkGQm1nSsiT5iJjG4SCyubUyRVtN2cDYKguUfvDYuR0omDDI") #consumer and secret key
-auth.set_access_token("863590434425196548-B8zgCMW1iUPFXbSqSjC9AufHnKwcywp", "mkc4V8LmNT8SdLJIZBpxKbGX7LAF4qp2f0knMdC2TCwT4") #access and secret key
+auth = tweepy.OAuthHandler(CONSUMERKEY, SECRETKEY) #consumer and secret key
+auth.set_access_token(ACCESSKEY, SECRETKEY) #access and secret key
 api = tweepy.API(auth)
  
 #list of good things
